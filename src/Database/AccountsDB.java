@@ -163,18 +163,10 @@ public class AccountsDB {
                 """, user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getAge());
     }
 
-    public String checkAccount(String username, String password) {
-        for (User user : users) {
-            if (user.getUsername().equals(username) &&
-                    user.getPassword().equals(password)) {
-                return user.getType();
-            }
-        }
-        return """
-               \n======================
-               NOT FOUND!
-               ======================
-               """;
+    //TODO: (if needed)
+    // -Method to get List<User> instance
+    public List<User> getUsers() {
+        return users;
     }
 
     // for loading of accounts from CSV
