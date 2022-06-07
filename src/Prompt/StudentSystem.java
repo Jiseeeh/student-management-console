@@ -10,7 +10,6 @@ import Views.StudentView;
 import Views.TeacherView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,11 +17,7 @@ public class StudentSystem {
     private static final Scanner scan = new Scanner(System.in);
     private static final AccountsDB accounts = AccountsOBJ.INSTANCE;
     private static final List<User> users = accounts.getUsers();
-    private static final List<Student> studentsLogged = new ArrayList<>();
-    private static final List<Teacher> teachersLogged = new ArrayList<>();
 
-    //TODO:
-    // - Store references who logged
     public static void prompt() {
         int choice = 0;
         while (choice != 2) {
@@ -57,14 +52,8 @@ public class StudentSystem {
 
         switch (accountType) {
             case "admin" -> AdminView.show();
-            case "student" -> {
-                studentsLogged.add((Student) account);
-                StudentView.show((Student) account);
-            }
-            case "teacher" -> {
-                teachersLogged.add((Teacher) account);
-                TeacherView.show((Teacher) account);
-            }
+            case "student" -> StudentView.show((Student) account);
+            case "teacher" -> TeacherView.show((Teacher) account);
             default -> {
                 System.out.println("Not found!");
                 StudentSystem.prompt();

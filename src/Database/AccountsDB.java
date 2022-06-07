@@ -1,6 +1,8 @@
 package Database;
 
 import Abstract.ImplementingClasses.Admin;
+import Abstract.ImplementingClasses.Student;
+import Abstract.ImplementingClasses.Teacher;
 import Abstract.User;
 
 import java.io.File;
@@ -15,6 +17,8 @@ public class AccountsDB {
     private final static File accountsCSV = new File("src/Database/CSV/accounts.csv");
     private static FileWriter accountsCSVWriter;
     private final List<User> users = new ArrayList<>();
+    private final List<Student> studentList = new ArrayList<>();
+    private final List<Teacher> teacherList = new ArrayList<>();
     private final Scanner scan = new Scanner(System.in);
 
     public AccountsDB() {
@@ -53,6 +57,8 @@ public class AccountsDB {
                 .age(age)
                 .build(type);
 
+        if (type.equals("student")) studentList.add((Student) newUser);
+        if (type.equals("teacher")) teacherList.add((Teacher) newUser);
         users.add(newUser);
 
         String info = "%s,%s,%s,%s,%d,%s\n";
@@ -138,33 +144,10 @@ public class AccountsDB {
                 """, user.getUsername(), user.getPassword()));
     }
 
-    public void getAccountInfo() {
-        Scanner scan = new Scanner(System.in);
-        User user = null;
-
-        System.out.print("Enter your username: ");
-        String username = scan.nextLine();
-
-        for (var currentUser : users) {
-            if (currentUser.getUsername().equals(username)) {
-                user = currentUser;
-                break;
-            }
-        }
-
-        System.out.printf("""
-                \n=======================
-                First name: %s
-                Last name: %s
-                Username: %s
-                Password: %s
-                Age : %d
-                =======================
-                """, user.getFirstName(), user.getLastName(), user.getUsername(), user.getPassword(), user.getAge());
+    public List<Student> getStudentList() {
+        return studentList;
     }
 
-    //TODO: (if needed)
-    // -Method to get List<User> instance
     public List<User> getUsers() {
         return users;
     }
@@ -205,13 +188,18 @@ public class AccountsDB {
                 String line = scanAccount.nextLine();
 
                 if (line == null) return;
-                String[] user = line.split(",");
+                String[] data = line.split(",");
 
-                users.add(new User.UserBuilder(user[0], user[1])
-                        .username(user[2])
-                        .password(user[3])
-                        .age(Integer.valueOf(user[4]))
-                        .build(user[5]));
+                users.add(new User.UserBuilder(data[0], data[1])
+                        .username(data[2])
+                        .password(data[3])
+                        .age(Integer.valueOf(data[4]))
+                        .build(data[5]));
+
+                users.forEach(user -> {
+                    if (user.getType().equals("student")) studentList.add((Student) user);
+                    if (user.getType().equals("teacher")) teacherList.add((Teacher) user);
+                });
             }
 
         } catch (FileNotFoundException e) {
