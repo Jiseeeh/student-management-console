@@ -2,11 +2,6 @@ package Database;
 
 public class Feedback {
     private final String feedback;
-    //TODO:
-    // - Add properties
-    //      - studentName or studentID
-    //      - teacherName or teacherID
-    // - Fix toString or add method for easy adding/removing in csv
     private final String studentName;
     private final String teacherName;
 

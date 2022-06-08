@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Student extends User {
-    //TODO add these:
-    // -Student's own feedbackList/TaskList
-    // -Methods to add/view it
     private final List<Feedback> myFeeds = new ArrayList<>();
     private final List<Task> myTasks = new ArrayList<>();
     private final Scanner scan = new Scanner(System.in);

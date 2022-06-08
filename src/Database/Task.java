@@ -3,11 +3,6 @@ package Database;
 public class Task {
     private final String studentName;
     private final String teacherName;
-    //TODO:
-    // - Add properties
-    //      - studentName or studentID
-    //      - teacherName or teacherID
-    // - Fix toString or add method for easy adding/removing in csv
     private String task;
 
     public Task(String studentName, String teacherName, String task) {

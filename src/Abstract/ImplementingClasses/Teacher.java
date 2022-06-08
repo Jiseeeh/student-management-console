@@ -15,9 +15,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Teacher extends User {
-    //TODO add these:
-    // -Teacher's own feedbackList/TaskList
-    // -Methods to add/view/remove it
     private static final List<Feedback> givenFeeds = new ArrayList<>();
     private static final List<Task> givenTasks = new ArrayList<>();
     private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
