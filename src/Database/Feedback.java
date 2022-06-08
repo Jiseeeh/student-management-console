@@ -7,18 +7,13 @@ public class Feedback {
     //      - studentName or studentID
     //      - teacherName or teacherID
     // - Fix toString or add method for easy adding/removing in csv
-    private String studentName;
-    private String teacherName;
+    private final String studentName;
+    private final String teacherName;
 
     public Feedback(String studentName, String teacherName, String feedback) {
         this.studentName = studentName;
         this.teacherName = teacherName;
         this.feedback = feedback;
-    }
-
-    @Override
-    public String toString() {
-        return studentName + "," + teacherName + "," + feedback;
     }
 
     public String getFeedback(boolean isStudent) {
@@ -33,4 +28,10 @@ public class Feedback {
                 """, studentName, feedback);
 
     }
+
+    @Override
+    public String toString() {
+        return studentName + "," + teacherName + "," + feedback;
+    }
+
 }

@@ -33,5 +33,6 @@ public class StudentView {
             if (choice == 5) studentLogged.clearFeeds();
             if (choice == 6) studentLogged.clearTasks();
         }
+        scan.close();
     }
 }

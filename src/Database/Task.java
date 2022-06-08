@@ -1,24 +1,19 @@
 package Database;
 
 public class Task {
+    private final String studentName;
+    private final String teacherName;
     //TODO:
     // - Add properties
     //      - studentName or studentID
     //      - teacherName or teacherID
     // - Fix toString or add method for easy adding/removing in csv
     private String task;
-    private String studentName;
-    private String teacherName;
 
     public Task(String studentName, String teacherName, String task) {
         this.studentName = studentName;
         this.teacherName = teacherName;
         this.task = task;
-    }
-
-    @Override
-    public String toString() {
-        return studentName + "," + teacherName + "," + task;
     }
 
     public String getTask(boolean isStudent) {
@@ -39,4 +34,10 @@ public class Task {
         if (!task.contains(done)) task += done;
         else System.out.println("Already DONE!");
     }
+
+    @Override
+    public String toString() {
+        return studentName + "," + teacherName + "," + task;
+    }
+
 }

@@ -2,7 +2,6 @@ package Database;
 
 import Abstract.ImplementingClasses.Admin;
 import Abstract.ImplementingClasses.Student;
-import Abstract.ImplementingClasses.Teacher;
 import Abstract.User;
 
 import java.io.File;
@@ -18,7 +17,6 @@ public class AccountsDB {
     private static FileWriter accountsCSVWriter;
     private final List<User> users = new ArrayList<>();
     private final List<Student> studentList = new ArrayList<>();
-    private final List<Teacher> teacherList = new ArrayList<>();
     private final Scanner scan = new Scanner(System.in);
 
     public AccountsDB() {
@@ -58,7 +56,6 @@ public class AccountsDB {
                 .build(type);
 
         if (type.equals("student")) studentList.add((Student) newUser);
-        if (type.equals("teacher")) teacherList.add((Teacher) newUser);
         users.add(newUser);
 
         String info = "%s,%s,%s,%s,%d,%s\n";
@@ -198,7 +195,6 @@ public class AccountsDB {
 
                 users.forEach(user -> {
                     if (user.getType().equals("student")) studentList.add((Student) user);
-                    if (user.getType().equals("teacher")) teacherList.add((Teacher) user);
                 });
             }
 

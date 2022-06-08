@@ -35,5 +35,6 @@ public class TeacherView {
             if (choice == 6) teacherLogged.viewGivenFeeds();
             if (choice == 7) teacherLogged.viewGivenTasks();
         }
+        scan.close();
     }
 }

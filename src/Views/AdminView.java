@@ -29,6 +29,7 @@ public class AdminView {
             if (choice == 2) deleteAccount();
             if (choice == 3) listAccounts();
         }
+        scan.close();
     }
 
     private static void createAccount() {

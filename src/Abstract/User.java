@@ -4,7 +4,7 @@ import Abstract.ImplementingClasses.Student;
 import Abstract.ImplementingClasses.Teacher;
 import Exceptions.InvalidAccountTypeException;
 
-public class User {
+public abstract class User {
     // required
     private String firstName;
     private String lastName;
