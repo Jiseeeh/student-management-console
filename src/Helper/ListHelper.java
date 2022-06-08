@@ -16,9 +16,9 @@ public class ListHelper {
                     |* No Feedbacks for now!!  *|
                     |---------------------------|
                     """);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean hasTasks(List<Task> list) {
@@ -29,9 +29,9 @@ public class ListHelper {
                     |* No Tasks for now!!  *|
                     |-----------------------|
                     """);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public static boolean hasStudents(List<Student> list, String type) {

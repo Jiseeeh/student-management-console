@@ -106,12 +106,12 @@ public class Teacher extends User {
     }
 
     public void viewGivenFeeds() {
-        if (ListHelper.hasFeeds(givenFeeds)) return;
+        if (!ListHelper.hasFeeds(givenFeeds)) return;
         givenFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(false)));
     }
 
     public void viewGivenTasks() {
-        if (ListHelper.hasTasks(givenTasks)) return;
+        if (!ListHelper.hasTasks(givenTasks)) return;
         givenTasks.forEach(task -> System.out.println(task.getTask(false)));
     }
 

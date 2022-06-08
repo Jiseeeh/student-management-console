@@ -23,16 +23,18 @@ public class Student extends User {
         this.setType(builder.getType());
     }
 
+    // for the student to also have a reference to the given feedback
     public void acceptFeed(Feedback feedback) {
         myFeeds.add(feedback);
     }
 
     public void viewMyFeeds() {
-        if (ListHelper.hasFeeds(myFeeds)) return;
+        if (!ListHelper.hasFeeds(myFeeds)) return;
 
         myFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
     }
 
+    // for the student to also have a reference to the given task
     public void acceptTask(Task task) {
         myTasks.add(task);
     }
@@ -40,7 +42,8 @@ public class Student extends User {
     public void markTask() {
         int i = 0;
 
-        if (ListHelper.hasTasks(myTasks)) return;
+        //
+        if (!ListHelper.hasTasks(myTasks)) return;
 
         System.out.println("""
                 Marking a task as done won't be saved when you exit,
@@ -59,7 +62,7 @@ public class Student extends User {
     }
 
     public void viewMyTasks() {
-        if (ListHelper.hasTasks(myTasks)) return;
+        if (!ListHelper.hasTasks(myTasks)) return;
 
         myTasks.forEach(task -> System.out.println(task.getTask(true)));
     }
