@@ -39,10 +39,15 @@ public class Student extends User {
         myTasks.add(task);
     }
 
+    public void viewMyTasks() {
+        if (!ListHelper.hasTasks(myTasks)) return;
+
+        myTasks.forEach(task -> System.out.println(task.getTask(true)));
+    }
+
     public void markTask() {
         int i = 0;
 
-        //
         if (!ListHelper.hasTasks(myTasks)) return;
 
         System.out.println("""
@@ -61,9 +66,4 @@ public class Student extends User {
         myTasks.get(index).markAsDone();
     }
 
-    public void viewMyTasks() {
-        if (!ListHelper.hasTasks(myTasks)) return;
-
-        myTasks.forEach(task -> System.out.println(task.getTask(true)));
-    }
 }

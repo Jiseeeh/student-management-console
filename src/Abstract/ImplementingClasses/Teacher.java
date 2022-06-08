@@ -33,6 +33,7 @@ public class Teacher extends User {
 
     }
 
+    // This loads the feeds and tasks csv if there are any contents present.
     public static void checkForTasksAndFeeds() {
         FileHelper.checkForFeeds(feedsCSV, givenFeeds);
         FileHelper.checkForTasks(tasksCSV, givenTasks);
@@ -61,7 +62,7 @@ public class Teacher extends User {
 
         Feedback feedback = new Feedback(student.getFirstName(), this.getFirstName(), feed);
         givenFeeds.add(feedback);
-        student.acceptFeed(feedback);
+        student.acceptFeed(feedback); // accepts the feed for the student obj to also have a reference to the feedback
 
         try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true);) {
             feedsCSVWriter.append(feedback + "\n");
@@ -95,7 +96,7 @@ public class Teacher extends User {
 
         Task task = new Task(student.getFirstName(), this.getFirstName(), givenTask);
         givenTasks.add(task);
-        student.acceptTask(task);
+        student.acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
         try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
             tasksCSVWriter.append(task.toString());

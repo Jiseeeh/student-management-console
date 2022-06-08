@@ -17,7 +17,9 @@ public class FileHelper {
     public static void clearCSVFile(File csvFile, String header) {
         FileWriter writer;
         try {
+            // deletes the file
             if (csvFile.delete()) {
+                // then create it again and append the header to simulate updating of file
                 csvFile.createNewFile();
                 writer = new FileWriter(csvFile, true);
                 writer.append(header);
@@ -41,10 +43,14 @@ public class FileHelper {
                 try (Scanner scanFeeds = new Scanner(feedsCSV)) {
                     String header = scanFeeds.nextLine();
                     Student student = null;
+                    String line;
+
                     while (scanFeeds.hasNextLine()) {
-                        String line = scanFeeds.nextLine();
+                        line = scanFeeds.nextLine();
+
                         if (line == null) return;
                         if (studentList.size() == 0) return;
+
                         String[] data = line.split(",");
 
                         for (var user : studentList) {
@@ -83,9 +89,11 @@ public class FileHelper {
                 try (Scanner scanTasks = new Scanner(tasksCSV)) {
                     String header = scanTasks.nextLine();
                     Student student = null;
+                    String line;
 
                     while (scanTasks.hasNextLine()) {
-                        String line = scanTasks.nextLine();
+                        line = scanTasks.nextLine();
+
                         if (line == null) return;
                         if (studentList.size() == 0) return;
 

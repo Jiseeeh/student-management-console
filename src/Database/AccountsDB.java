@@ -59,6 +59,7 @@ public class AccountsDB {
         if (type.equals("student")) studentList.add((Student) newUser);
         users.add(newUser);
 
+        // appends the user's information to the accountsCSV
         String info = "%s,%s,%s,%s,%d,%s\n";
         try {
             accountsCSVWriter.append(String.format(info, newUser.getFirstName(), newUser.getLastName(),
@@ -122,10 +123,10 @@ public class AccountsDB {
                     String[] lines = line.split(",");
                     if (lines.length == 0) return;
 
-                    /// skips the account that needs to be deleted
+                    /// skips the line of the account that needs to be deleted
                     if (lines[2].equals(username)) continue;
 
-                    // write to temp file
+                    // write the line of other accounts to the temp file
                     writer.write(line + "\n");
                 }
                 writer.close();
@@ -154,33 +155,21 @@ public class AccountsDB {
         }
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
     // for loading of accounts from CSV
     public void hasAccounts() throws IOException {
-        // check if the DIR is created, then check if the file can also be created
+        // check if the DIR is created
         if (new File("src/Database/CSV").mkdir()) {
-            if (canCreateFile()) writeHeader();
+            if (accountsCSV.createNewFile()) writeHeader(); // if the file was created, write the header
         }
         // else means the DIR is already existing
         // checks if the file can be created or already existing
         else {
-            if (canCreateFile()) writeHeader();
+            if (accountsCSV.createNewFile()) writeHeader();
             else {
                 readAccounts();
                 accountsCSVWriter = new FileWriter(accountsCSV, true);
             }
         }
-    }
-
-    private boolean canCreateFile() throws IOException {
-        return accountsCSV.createNewFile();
     }
 
     private void writeHeader() throws IOException {
@@ -207,13 +196,20 @@ public class AccountsDB {
                         .build(data[5]);
 
                 users.add(user);
-
                 if (user.getType().equals("student")) studentList.add((Student) user);
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public List<User> getUsers() {
+        return users;
     }
 }
 

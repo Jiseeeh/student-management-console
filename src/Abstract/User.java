@@ -13,6 +13,19 @@ public abstract class User {
     private Integer age;
     private String type;
 
+    public void viewMyInfo() {
+        System.out.printf("""
+                \n=======================
+                First name: %s
+                Last name: %s
+                Username: %s
+                Password: %s
+                Age : %d
+                =======================
+                """, this.getFirstName(), this.getLastName(), this.getUsername(), this.getPassword(), this.getAge());
+    }
+
+    // getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -61,17 +74,6 @@ public abstract class User {
         this.type = type;
     }
 
-    public void viewMyInfo() {
-        System.out.printf("""
-                \n=======================
-                First name: %s
-                Last name: %s
-                Username: %s
-                Password: %s
-                Age : %d
-                =======================
-                """, this.getFirstName(), this.getLastName(), this.getUsername(), this.getPassword(), this.getAge());
-    }
 
     public static class UserBuilder {
         private final String firstName;
