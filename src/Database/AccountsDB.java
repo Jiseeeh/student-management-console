@@ -25,7 +25,7 @@ public class AccountsDB {
     }
 
     public void createAccount() {
-        System.out.println("Please answer the following.");
+        System.out.println("\nPlease answer the following.");
         System.out.println("""
                 What type of account?
                 0 -> Student
@@ -73,7 +73,10 @@ public class AccountsDB {
     public void deleteAccount() {
         File tempFile = new File("src/Database/CSV/accountsTEMP.csv");
 
-        System.out.print("Enter the username of the account: ");
+        this.listAccounts();
+
+        System.out.println("\nEnter the username of the account");
+        System.out.print(": ");
         String username = scan.nextLine();
 
         if (username.equals("admin")) {
@@ -84,21 +87,26 @@ public class AccountsDB {
         }
 
         boolean result = false;
+        User userToBeDeleted = null;
+
         for (int i = 1; i < users.size(); i++) {
             if (users.get(i).getUsername().equals(username)) {
                 result = true;
+                userToBeDeleted = users.get(i);
                 break;
             }
         }
 
         if (result) {
-            System.out.println("\n=======================");
+            users.remove(userToBeDeleted);
+            studentList.remove(userToBeDeleted);
+            System.out.println("\n===========");
             System.out.println("Success!");
-            System.out.println("=======================");
+            System.out.println("===========");
         } else {
-            System.out.println("\n=======================");
+            System.out.println("\n===========");
             System.out.println("Not found!");
-            System.out.println("=======================");
+            System.out.println("===========");
         }
 
         updateAccountsCSV(username, tempFile);
@@ -133,13 +141,17 @@ public class AccountsDB {
     }
 
     public void listAccounts() {
-        System.out.println(users.size());
-        users.forEach(user -> System.out.printf("""
-                \n================
-                Username: %s
-                Password: %s
-                ================
-                """, user.getUsername(), user.getPassword()));
+        for (var user : users) {
+            // skips the admin
+            if (user.getUsername().equals("admin")) continue;
+
+            System.out.printf("""
+                    \n================
+                    Username: %s
+                    Password: %s
+                    ================
+                    """, user.getUsername(), user.getPassword());
+        }
     }
 
     public List<Student> getStudentList() {
@@ -188,15 +200,15 @@ public class AccountsDB {
                 if (line == null) return;
                 String[] data = line.split(",");
 
-                users.add(new User.UserBuilder(data[0], data[1])
+                User user = new User.UserBuilder(data[0], data[1])
                         .username(data[2])
                         .password(data[3])
                         .age(Integer.valueOf(data[4]))
-                        .build(data[5]));
+                        .build(data[5]);
 
-                users.forEach(user -> {
-                    if (user.getType().equals("student")) studentList.add((Student) user);
-                });
+                users.add(user);
+
+                if (user.getType().equals("student")) studentList.add((Student) user);
             }
 
         } catch (FileNotFoundException e) {

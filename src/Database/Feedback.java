@@ -13,11 +13,11 @@ public class Feedback {
 
     public String getFeedback(boolean isStudent) {
         return (isStudent) ? String.format("""
-                From Mr/Ms %s: {
+                \nFrom Mr/Ms %s: {
                 %s
                 }
                 """, teacherName, feedback) : String.format("""
-                To Mr/Ms %s: {
+                \nTo Mr/Ms %s: {
                 %s
                 }
                 """, studentName, feedback);

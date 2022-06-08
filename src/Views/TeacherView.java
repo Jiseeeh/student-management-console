@@ -1,7 +1,7 @@
 package Views;
 
 import Abstract.ImplementingClasses.Teacher;
-import Prompt.StudentSystem;
+import Helper.InputHelper;
 
 import java.util.Scanner;
 
@@ -9,9 +9,8 @@ public class TeacherView {
     private static final Scanner scan = new Scanner(System.in);
 
     public static void show(Teacher teacherLogged) {
-        int choice = 0;
 
-        while (choice != 8) {
+        while (true) {
             System.out.println("""
                     \nWhat do you want to do?
                     1 -> Give Feedbacks to students
@@ -20,13 +19,17 @@ public class TeacherView {
                     4 -> Clear Feedbacks
                     5 -> See my info
                     6 -> See given feedbacks
-                    7 -> See given feedbacks
+                    7 -> See given Tasks
                     8 -> Logout
                     """);
             System.out.print(": ");
-            choice = Integer.parseInt(scan.nextLine());
+            String input = scan.nextLine();
 
-            if (choice == 8) StudentSystem.prompt();
+            if (InputHelper.hasLetterInput(input)) continue;
+
+            int choice = Integer.parseInt(input);
+
+            if (choice == 8) return;
             if (choice == 1) teacherLogged.giveFeed();
             if (choice == 2) teacherLogged.giveTask();
             if (choice == 3) teacherLogged.clearTasks();
@@ -35,6 +38,5 @@ public class TeacherView {
             if (choice == 6) teacherLogged.viewGivenFeeds();
             if (choice == 7) teacherLogged.viewGivenTasks();
         }
-        scan.close();
     }
 }

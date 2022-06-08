@@ -13,11 +13,11 @@ public class Task {
 
     public String getTask(boolean isStudent) {
         return (isStudent) ? String.format("""
-                From Mr/Ms %s: {
+                \nFrom Mr/Ms %s: {
                 %s
                 }
                 """, teacherName, task) : String.format("""
-                Given to Mr/Ms %s: {
+                \nGiven to Mr/Ms %s: {
                 %s
                 }
                 """, studentName, task);
@@ -27,7 +27,14 @@ public class Task {
     public void markAsDone() {
         String done = " (Done)";
         if (!task.contains(done)) task += done;
-        else System.out.println("Already DONE!");
+        else
+            System.out.println("""
+                                            
+                    |-------------------------|
+                    |* Task is already DONE! *|
+                    |-------------------------|
+                    """);
+
     }
 
     @Override

@@ -3,6 +3,7 @@ package Abstract.ImplementingClasses;
 import Abstract.User;
 import Database.Feedback;
 import Database.Task;
+import Helper.ListHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,17 +28,9 @@ public class Student extends User {
     }
 
     public void viewMyFeeds() {
-        myFeeds.forEach(feedback -> {
-            System.out.println(feedback.getFeedback(true));
-        });
-    }
+        if (ListHelper.hasFeeds(myFeeds)) return;
 
-    public void clearFeeds() {
-        myFeeds.clear();
-    }
-
-    public void clearTasks() {
-        myTasks.clear();
+        myFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
     }
 
     public void acceptTask(Task task) {
@@ -46,6 +39,8 @@ public class Student extends User {
 
     public void markTask() {
         int i = 0;
+
+        if (ListHelper.hasTasks(myTasks)) return;
 
         System.out.println("""
                 Marking a task as done won't be saved when you exit,
@@ -64,8 +59,8 @@ public class Student extends User {
     }
 
     public void viewMyTasks() {
-        myTasks.forEach(task -> {
-            System.out.println(task.getTask(true));
-        });
+        if (ListHelper.hasTasks(myTasks)) return;
+
+        myTasks.forEach(task -> System.out.println(task.getTask(true)));
     }
 }

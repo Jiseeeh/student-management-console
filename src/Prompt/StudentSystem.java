@@ -4,6 +4,7 @@ import Abstract.ImplementingClasses.Student;
 import Abstract.ImplementingClasses.Teacher;
 import Abstract.User;
 import Database.AccountsDB;
+import Helper.InputHelper;
 import Views.AdminView;
 import Views.StudentView;
 import Views.TeacherView;
@@ -18,8 +19,7 @@ public class StudentSystem {
     private static final List<User> users = accounts.getUsers();
 
     public static void prompt() {
-        int choice = 0;
-        while (choice != 2) {
+        while (true) {
             System.out.println("""
                     \nWhat do you want to do?
                     1 -> login
@@ -27,13 +27,27 @@ public class StudentSystem {
                     """);
 
             System.out.print(": ");
-            choice = Integer.parseInt(scan.nextLine());
+            String input = scan.nextLine().trim();
+
+            if (InputHelper.hasLetterInput(input)) continue;
+
+            int choice = Integer.parseInt(input);
+
             if (choice == 1) login();
+            else if (choice == 2) return;
+            else {
+                System.out.println("""
+                                                
+                        |-------------------|
+                        |* Invalid input!  *|
+                        |-------------------|
+                        """);
+            }
         }
     }
 
     public static void login() {
-        System.out.print("Enter your username: ");
+        System.out.print("\nEnter your username: ");
         String username = scan.nextLine();
         System.out.print("Enter your password: ");
         String password = scan.nextLine();
@@ -48,13 +62,17 @@ public class StudentSystem {
                 break;
             }
         }
-
         switch (accountType) {
             case "admin" -> AdminView.show();
             case "student" -> StudentView.show((Student) account);
             case "teacher" -> TeacherView.show((Teacher) account);
             default -> {
-                System.out.println("Not found!");
+                System.out.println("""
+                                                
+                        |-------------------|
+                        |*Account not Found*|
+                        |-------------------|
+                        """);
                 StudentSystem.prompt();
             }
         }

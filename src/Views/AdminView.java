@@ -1,7 +1,7 @@
 package Views;
 
 import Database.AccountsDB;
-import Prompt.StudentSystem;
+import Helper.InputHelper;
 
 import java.util.Scanner;
 
@@ -10,9 +10,7 @@ public class AdminView {
     private static final Scanner scan = new Scanner(System.in);
 
     public static void show() {
-        int choice = 0;
-
-        while (choice != 4) {
+        while (true) {
             System.out.println("""
                     \nWhat do you want to do?
                     1 -> Create account
@@ -21,14 +19,17 @@ public class AdminView {
                     4 -> Logout
                     """);
             System.out.print(": ");
-            choice = Integer.parseInt(scan.nextLine());
+            String input = scan.nextLine().trim();
 
-            if (choice == 4) StudentSystem.prompt();
+            if (InputHelper.hasLetterInput(input)) continue;
+
+            int choice = Integer.parseInt(input);
+
+            if (choice == 4) return;
             if (choice == 1) createAccount();
             if (choice == 2) deleteAccount();
             if (choice == 3) listAccounts();
         }
-        scan.close();
     }
 
     private static void createAccount() {
