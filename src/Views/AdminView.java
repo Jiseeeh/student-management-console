@@ -1,13 +1,12 @@
 package Views;
 
-import Database.Access.AccountsOBJ;
 import Database.AccountsDB;
 import Prompt.StudentSystem;
 
 import java.util.Scanner;
 
 public class AdminView {
-    private static final AccountsDB accounts = AccountsOBJ.INSTANCE;
+    private static final AccountsDB accounts = AccountsDB.INSTANCE;
     private static final Scanner scan = new Scanner(System.in);
 
     public static void show() {

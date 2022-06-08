@@ -3,7 +3,6 @@ package Prompt;
 import Abstract.ImplementingClasses.Student;
 import Abstract.ImplementingClasses.Teacher;
 import Abstract.User;
-import Database.Access.AccountsOBJ;
 import Database.AccountsDB;
 import Views.AdminView;
 import Views.StudentView;
@@ -15,7 +14,7 @@ import java.util.Scanner;
 
 public class StudentSystem {
     private static final Scanner scan = new Scanner(System.in);
-    private static final AccountsDB accounts = AccountsOBJ.INSTANCE;
+    private static final AccountsDB accounts = AccountsDB.INSTANCE;
     private static final List<User> users = accounts.getUsers();
 
     public static void prompt() {

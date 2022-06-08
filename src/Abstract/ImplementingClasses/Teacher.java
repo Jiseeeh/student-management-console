@@ -1,7 +1,6 @@
 package Abstract.ImplementingClasses;
 
 import Abstract.User;
-import Database.Access.AccountsOBJ;
 import Database.AccountsDB;
 import Database.Feedback;
 import Database.Task;
@@ -19,7 +18,7 @@ public class Teacher extends User {
     private static final List<Task> givenTasks = new ArrayList<>();
     private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
     private static final File tasksCSV = new File("src/Database/CSV/tasks.csv");
-    private final AccountsDB accountsDB = AccountsOBJ.INSTANCE;
+    private final AccountsDB accountsDB = AccountsDB.INSTANCE;
     private final List<Student> studentList = accountsDB.getStudentList();
     private final Scanner scan = new Scanner(System.in);
 

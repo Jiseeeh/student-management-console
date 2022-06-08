@@ -13,13 +13,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AccountsDB {
+    public static final AccountsDB INSTANCE = new AccountsDB();
     private final static File accountsCSV = new File("src/Database/CSV/accounts.csv");
     private static FileWriter accountsCSVWriter;
     private final List<User> users = new ArrayList<>();
     private final List<Student> studentList = new ArrayList<>();
     private final Scanner scan = new Scanner(System.in);
 
-    public AccountsDB() {
+    private AccountsDB() {
         users.add(new Admin());
     }
 

@@ -1,7 +1,7 @@
 package Helper;
 
 import Abstract.ImplementingClasses.Student;
-import Database.Access.AccountsOBJ;
+import Database.AccountsDB;
 import Database.Feedback;
 import Database.Task;
 
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileHelper {
-    private static final List<Student> studentList = AccountsOBJ.INSTANCE.getStudentList();
+    private static final List<Student> studentList = AccountsDB.INSTANCE.getStudentList();
 
     public static void clearCSVFile(File csvFile, String header) {
         FileWriter writer;
