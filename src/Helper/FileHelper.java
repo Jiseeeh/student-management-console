@@ -44,7 +44,7 @@ public class FileHelper {
                     while (scanFeeds.hasNextLine()) {
                         String line = scanFeeds.nextLine();
                         if (line == null) return;
-
+                        if (studentList.size() == 0) return;
                         String[] data = line.split(",");
 
                         for (var user : studentList) {
@@ -53,6 +53,9 @@ public class FileHelper {
                                 break;
                             }
                         }
+
+                        // if no student matched from the line, we'll check next line
+                        if (student == null) break;
 
                         Feedback feedback = new Feedback(student.getFirstName(), data[1], data[2]);
                         givenFeeds.add(feedback);
@@ -84,6 +87,7 @@ public class FileHelper {
                     while (scanTasks.hasNextLine()) {
                         String line = scanTasks.nextLine();
                         if (line == null) return;
+                        if (studentList.size() == 0) return;
 
                         String[] data = line.split(",");
 
@@ -94,8 +98,10 @@ public class FileHelper {
                             }
                         }
 
-                        Task task = new Task(student.getFirstName(), data[1], data[2]);
+                        // if no student matched from the line, we'll check next line
+                        if (student == null) break;
 
+                        Task task = new Task(student.getFirstName(), data[1], data[2]);
                         givenTasks.add(task);
                         student.acceptTask(task);
                     }
