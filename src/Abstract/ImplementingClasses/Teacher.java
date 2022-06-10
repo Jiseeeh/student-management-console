@@ -99,7 +99,7 @@ public class Teacher extends User {
         student.acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
         try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
-            tasksCSVWriter.append(task.toString());
+            tasksCSVWriter.append(task.toString() + "\n");
             tasksCSVWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
