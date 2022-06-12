@@ -47,8 +47,8 @@ public class StudentController {
         if (!ListHelper.hasTasks(myTasks)) return;
 
         System.out.println("""
-                Marking a task as done won't be saved when you exit,
-                Make sure to clear your tasks after so that you don't need to mark it again.
+                NOTE: Marking a task as done won't be saved when you exit.
+                So when you log back again, you won't see (DONE) with it.
                 """);
 
         for (var task : myTasks) {

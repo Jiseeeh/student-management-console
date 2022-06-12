@@ -10,14 +10,21 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/src/Database/CSV/feeds.csv">
+        <entry key="\src\Database\CSV\accounts.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
             </Attribute>
           </value>
         </entry>
-        <entry key="/src/Database/CSV/tasks.csv">
+        <entry key="\src\Database\CSV\feeds.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="\src\Database\CSV\tasks.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

@@ -9,6 +9,7 @@ import Model.Student;
 import Model.Teacher;
 import Views.TeacherView;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class TeacherController {
     private final TeacherView teacherView = new TeacherView();
     private static final List<Feedback> givenFeeds = new ArrayList<>();
     private static final List<Task> givenTasks = new ArrayList<>();
+    private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
+    private static final File tasksCSV = new File("src/Database/CSV/tasks.csv");
     private final AccountsDB accountsDB = AccountsDB.INSTANCE;
     private final List<Student> studentList = accountsDB.getStudentList();
     private final Scanner scan;
@@ -27,6 +30,11 @@ public class TeacherController {
     public TeacherController(Teacher teacher, Scanner scan) {
         this.teacher = teacher;
         this.scan = scan;
+    }
+
+    public static void checkForTasksAndFeeds() {
+        FileHelper.checkForFeeds(feedsCSV, givenFeeds);
+        FileHelper.checkForTasks(tasksCSV, givenTasks);
     }
 
     public void start () {
@@ -58,12 +66,12 @@ public class TeacherController {
         givenFeeds.add(feedback);
         student.acceptFeed(feedback); // accepts the feed for the student obj to also have a reference to the feedback
 
-//        try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true);) {
-//            feedsCSVWriter.append(feedback + "\n");
-//            feedsCSVWriter.flush();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true);) {
+            feedsCSVWriter.append(feedback + "\n");
+            feedsCSVWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -92,12 +100,12 @@ public class TeacherController {
         givenTasks.add(task);
         student.acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
-//        try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
-//            tasksCSVWriter.append(task.toString() + "\n");
-//            tasksCSVWriter.flush();
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
+            tasksCSVWriter.append(task.toString() + "\n");
+            tasksCSVWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void viewGivenFeeds() {
@@ -120,7 +128,7 @@ public class TeacherController {
                 """);
 
         givenFeeds.clear();
-//        FileHelper.clearCSVFile(feedsCSV, "StudentName,TeacherName,Feedback\n");
+        FileHelper.clearCSVFile(feedsCSV, "StudentName,TeacherName,Feedback\n");
     }
 
     public void clearTasks() {
@@ -132,7 +140,7 @@ public class TeacherController {
                 """);
 
         givenTasks.clear();
-//        FileHelper.clearCSVFile(tasksCSV, "StudentName,TeacherName,Task\n");
+        FileHelper.clearCSVFile(tasksCSV, "StudentName,TeacherName,Task\n");
     }
 
     public void viewMyInfo() {

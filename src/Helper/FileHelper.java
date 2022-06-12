@@ -65,7 +65,7 @@ public class FileHelper {
 
                         Feedback feedback = new Feedback(student.getFirstName(), data[1], data[2]);
                         givenFeeds.add(feedback);
-//                        student.acceptFeed(feedback);
+                        student.acceptFeed(feedback);
 
                     }
 
@@ -111,7 +111,7 @@ public class FileHelper {
 
                         Task task = new Task(student.getFirstName(), data[1], data[2]);
                         givenTasks.add(task);
-//                        student.acceptTask(task);
+                        student.acceptTask(task);
                     }
 
                 } catch (IOException e) {
