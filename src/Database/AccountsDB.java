@@ -72,7 +72,7 @@ public class AccountsDB {
 
 
     public void deleteAccount() {
-        File tempFile = new File("src/Database/CSV/accountsTEMP.csv");
+
 
         this.listAccounts();
 
@@ -110,10 +110,11 @@ public class AccountsDB {
             System.out.println("===========");
         }
 
-        updateAccountsCSV(username, tempFile);
+        updateAccountsCSV(username);
     }
 
-    private void updateAccountsCSV(String username, File tempFile) {
+    private void updateAccountsCSV(String username) {
+        File tempFile = new File("src/Database/CSV/accountsTEMP.csv");
         /// copies the content of the accounts CSV and skipping the deleted line
         try (Scanner scanAccountsCSV = new Scanner(accountsCSV)) {
             if (tempFile.createNewFile()) {
