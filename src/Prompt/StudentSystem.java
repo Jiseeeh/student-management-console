@@ -75,7 +75,7 @@ public class StudentSystem {
                 studentController.start();
             }
             case "teacher" -> {
-                var teacherController = new TeacherController((Teacher) account,scan);
+                var teacherController = new TeacherController((Teacher) account, scan);
                 teacherController.start();
             }
             default -> {

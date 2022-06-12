@@ -10,10 +10,11 @@ public class AdminController {
     private final AccountsDB accountsDB = AccountsDB.INSTANCE;
     private final Scanner scan;
 
-    public AdminController (Scanner scan) {
+    public AdminController(Scanner scan) {
         this.scan = scan;
     }
-    public void start () {
+
+    public void start() {
         adminView.show(this, scan);
     }
 
@@ -21,11 +22,11 @@ public class AdminController {
         accountsDB.createAccount();
     }
 
-    public  void deleteAccount() {
+    public void deleteAccount() {
         accountsDB.deleteAccount();
     }
 
-    public  void listAccounts() {
+    public void listAccounts() {
         accountsDB.listAccounts();
     }
 }

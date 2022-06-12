@@ -7,7 +7,7 @@ import Helper.InputHelper;
 import java.util.Scanner;
 
 public class AdminView {
-    public void show(AdminController adminController , Scanner scan) {
+    public void show(AdminController adminController, Scanner scan) {
         while (true) {
             System.out.println("""
                     \nWhat do you want to do?

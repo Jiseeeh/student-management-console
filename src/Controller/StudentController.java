@@ -16,14 +16,15 @@ public class StudentController {
     private final List<Feedback> myFeeds;
     private final List<Task> myTasks;
     private final Scanner scan;
-    public StudentController (Student student, Scanner scan) {
+
+    public StudentController(Student student, Scanner scan) {
         this.student = student;
         this.scan = scan;
         myFeeds = student.getMyFeeds();
         myTasks = student.getMyTasks();
     }
 
-    public void start () {
+    public void start() {
         studentView.show(this);
     }
 
@@ -32,8 +33,6 @@ public class StudentController {
 
         myFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
     }
-
-
 
     public void viewMyTasks() {
         if (!ListHelper.hasTasks(myTasks)) return;

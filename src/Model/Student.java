@@ -31,6 +31,7 @@ public class Student extends User {
     public void acceptFeed(Feedback feedback) {
         myFeeds.add(feedback);
     }
+
     public List<Feedback> getMyFeeds() {
         return myFeeds;
     }

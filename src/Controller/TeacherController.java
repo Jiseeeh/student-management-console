@@ -37,8 +37,8 @@ public class TeacherController {
         FileHelper.checkForTasks(tasksCSV, givenTasks);
     }
 
-    public void start () {
-        teacherView.show(this,scan);
+    public void start() {
+        teacherView.show(this, scan);
     }
 
     public void giveFeed() {
