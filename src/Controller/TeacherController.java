@@ -1,8 +1,8 @@
 package Controller;
 
 import Database.AccountsDB;
-import Database.Feedback;
-import Database.Task;
+import Model.Feedback;
+import Model.Task;
 import Helper.FileHelper;
 import Helper.ListHelper;
 import Model.Student;

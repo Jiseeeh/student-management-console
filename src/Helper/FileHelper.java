@@ -2,8 +2,8 @@ package Helper;
 
 import Model.Student;
 import Database.AccountsDB;
-import Database.Feedback;
-import Database.Task;
+import Model.Feedback;
+import Model.Task;
 
 import java.io.File;
 import java.io.FileWriter;

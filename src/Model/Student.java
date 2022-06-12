@@ -1,12 +1,7 @@
 package Model;
 
-import Database.Feedback;
-import Database.Task;
-import Helper.ListHelper;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Student extends User {
     private final List<Feedback> myFeeds = new ArrayList<>();

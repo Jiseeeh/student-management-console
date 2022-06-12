@@ -1,8 +1,8 @@
 package Helper;
 
 import Model.Student;
-import Database.Feedback;
-import Database.Task;
+import Model.Feedback;
+import Model.Task;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package Controller;
 
-import Database.Feedback;
-import Database.Task;
+import Model.Feedback;
+import Model.Task;
 import Helper.ListHelper;
 import Model.Student;
 import Views.StudentView;
