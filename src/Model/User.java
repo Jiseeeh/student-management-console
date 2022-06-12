@@ -1,7 +1,5 @@
-package Abstract;
+package Model;
 
-import Abstract.ImplementingClasses.Student;
-import Abstract.ImplementingClasses.Teacher;
 import Exceptions.InvalidAccountTypeException;
 
 public abstract class User {

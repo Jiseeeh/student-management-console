@@ -1,8 +1,8 @@
 package Database;
 
-import Abstract.ImplementingClasses.Admin;
-import Abstract.ImplementingClasses.Student;
-import Abstract.User;
+import Model.Admin;
+import Model.Student;
+import Model.User;
 
 import java.io.File;
 import java.io.FileNotFoundException;

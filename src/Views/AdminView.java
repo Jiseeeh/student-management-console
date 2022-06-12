@@ -1,15 +1,13 @@
 package Views;
 
+import Controller.AdminController;
 import Database.AccountsDB;
 import Helper.InputHelper;
 
 import java.util.Scanner;
 
 public class AdminView {
-    private static final AccountsDB accounts = AccountsDB.INSTANCE;
-    private static final Scanner scan = new Scanner(System.in);
-
-    public static void show() {
+    public void show(AdminController adminController , Scanner scan) {
         while (true) {
             System.out.println("""
                     \nWhat do you want to do?
@@ -26,21 +24,9 @@ public class AdminView {
             int choice = Integer.parseInt(input);
 
             if (choice == 4) return;
-            if (choice == 1) createAccount();
-            if (choice == 2) deleteAccount();
-            if (choice == 3) listAccounts();
+            if (choice == 1) adminController.createAccount();
+            if (choice == 2) adminController.deleteAccount();
+            if (choice == 3) adminController.listAccounts();
         }
-    }
-
-    private static void createAccount() {
-        accounts.createAccount();
-    }
-
-    private static void deleteAccount() {
-        accounts.deleteAccount();
-    }
-
-    private static void listAccounts() {
-        accounts.listAccounts();
     }
 }

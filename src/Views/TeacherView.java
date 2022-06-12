@@ -1,14 +1,13 @@
 package Views;
 
-import Abstract.ImplementingClasses.Teacher;
+import Controller.TeacherController;
+import Model.Teacher;
 import Helper.InputHelper;
 
 import java.util.Scanner;
 
 public class TeacherView {
-    private static final Scanner scan = new Scanner(System.in);
-
-    public static void show(Teacher teacherLogged) {
+    public void show(TeacherController teacherController, Scanner scan) {
 
         while (true) {
             System.out.println("""
@@ -30,13 +29,13 @@ public class TeacherView {
             int choice = Integer.parseInt(input);
 
             if (choice == 8) return;
-            if (choice == 1) teacherLogged.giveFeed();
-            if (choice == 2) teacherLogged.giveTask();
-            if (choice == 3) teacherLogged.clearTasks();
-            if (choice == 4) teacherLogged.clearFeeds();
-            if (choice == 5) teacherLogged.viewMyInfo();
-            if (choice == 6) teacherLogged.viewGivenFeeds();
-            if (choice == 7) teacherLogged.viewGivenTasks();
+            if (choice == 1) teacherController.giveFeed();
+            if (choice == 2) teacherController.giveTask();
+            if (choice == 3) teacherController.clearTasks();
+            if (choice == 4) teacherController.clearFeeds();
+            if (choice == 5) teacherController.viewMyInfo();
+            if (choice == 6) teacherController.viewGivenFeeds();
+            if (choice == 7) teacherController.viewGivenTasks();
         }
     }
 }

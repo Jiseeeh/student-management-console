@@ -1,6 +1,6 @@
 package Helper;
 
-import Abstract.ImplementingClasses.Student;
+import Model.Student;
 import Database.Feedback;
 import Database.Task;
 

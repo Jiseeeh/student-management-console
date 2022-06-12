@@ -1,8 +1,11 @@
 package Prompt;
 
-import Abstract.ImplementingClasses.Student;
-import Abstract.ImplementingClasses.Teacher;
-import Abstract.User;
+import Controller.AdminController;
+import Controller.StudentController;
+import Controller.TeacherController;
+import Model.Student;
+import Model.Teacher;
+import Model.User;
 import Database.AccountsDB;
 import Helper.InputHelper;
 import Views.AdminView;
@@ -63,9 +66,18 @@ public class StudentSystem {
             }
         }
         switch (accountType) {
-            case "admin" -> AdminView.show();
-            case "student" -> StudentView.show((Student) account);
-            case "teacher" -> TeacherView.show((Teacher) account);
+            case "admin" -> {
+                var adminController = new AdminController(scan);
+                adminController.start();
+            }
+            case "student" -> {
+                var studentController = new StudentController((Student) account, scan);
+                studentController.start();
+            }
+            case "teacher" -> {
+                var teacherController = new TeacherController((Teacher) account,scan);
+                teacherController.start();
+            }
             default -> {
                 System.out.println("""
                                                 

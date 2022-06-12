@@ -1,31 +1,30 @@
-package Abstract.ImplementingClasses;
+package Controller;
 
-import Abstract.User;
 import Database.Feedback;
 import Database.Task;
 import Helper.ListHelper;
+import Model.Student;
+import Views.StudentView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Student extends User {
-    private final List<Feedback> myFeeds = new ArrayList<>();
-    private final List<Task> myTasks = new ArrayList<>();
-    private final Scanner scan = new Scanner(System.in);
+public class StudentController {
 
-    public Student(UserBuilder builder) {
-        this.setFirstName(builder.getFirstName());
-        this.setLastName(builder.getLastName());
-        this.setUsername(builder.getUsername());
-        this.setPassword(builder.getPassword());
-        this.setAge(builder.getAge());
-        this.setType(builder.getType());
+    private final Student student;
+    private final StudentView studentView = new StudentView();
+    private final List<Feedback> myFeeds;
+    private final List<Task> myTasks;
+    private final Scanner scan;
+    public StudentController (Student student, Scanner scan) {
+        this.student = student;
+        this.scan = scan;
+        myFeeds = student.getMyFeeds();
+        myTasks = student.getMyTasks();
     }
 
-    // for the student to also have a reference to the given feedback
-    public void acceptFeed(Feedback feedback) {
-        myFeeds.add(feedback);
+    public void start () {
+        studentView.show(this);
     }
 
     public void viewMyFeeds() {
@@ -34,10 +33,7 @@ public class Student extends User {
         myFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
     }
 
-    // for the student to also have a reference to the given task
-    public void acceptTask(Task task) {
-        myTasks.add(task);
-    }
+
 
     public void viewMyTasks() {
         if (!ListHelper.hasTasks(myTasks)) return;
@@ -66,4 +62,7 @@ public class Student extends User {
         myTasks.get(index).markAsDone();
     }
 
+    public void viewMyInfo() {
+        student.viewMyInfo();
+    }
 }
