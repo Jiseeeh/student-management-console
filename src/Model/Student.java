@@ -7,7 +7,6 @@ public class Student extends User {
     private final List<Feedback> myFeeds = new ArrayList<>();
     private final List<Task> myTasks = new ArrayList<>();
 
-
     public Student(UserBuilder builder) {
         this.setFirstName(builder.getFirstName());
         this.setLastName(builder.getLastName());
@@ -34,5 +33,4 @@ public class Student extends User {
     public List<Task> getMyTasks() {
         return myTasks;
     }
-
 }

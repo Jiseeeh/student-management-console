@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class StudentController {
-
     private final Student student;
     private final StudentView studentView = new StudentView();
     private final List<Feedback> myFeeds;
@@ -25,7 +24,7 @@ public class StudentController {
     }
 
     public void start() {
-        studentView.show(this);
+        studentView.show(this, scan);
     }
 
     public void viewMyFeeds() {

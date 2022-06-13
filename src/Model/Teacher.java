@@ -42,6 +42,4 @@ public class Teacher extends User {
     public File getTasksCSV() {
         return tasksCSV;
     }
-
-
 }

@@ -6,9 +6,7 @@ import Model.Student;
 import java.util.Scanner;
 
 public class StudentView {
-    private final Scanner scan = new Scanner(System.in);
-
-    public void show(StudentController studentController) {
+    public void show(StudentController studentController, Scanner scan) {
 
         while (true) {
             System.out.println("""

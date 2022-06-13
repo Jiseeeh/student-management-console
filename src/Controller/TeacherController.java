@@ -71,7 +71,6 @@ public class TeacherController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public void giveTask() {

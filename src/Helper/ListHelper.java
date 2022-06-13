@@ -7,7 +7,6 @@ import Model.Task;
 import java.util.List;
 
 public class ListHelper {
-
     public static boolean hasFeeds(List<Feedback> list) {
         if (list.size() == 0) {
             System.out.println("""

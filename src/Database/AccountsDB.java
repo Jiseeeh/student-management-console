@@ -72,7 +72,6 @@ public class AccountsDB {
         }
     }
 
-
     public void deleteAccount() {
 
 
