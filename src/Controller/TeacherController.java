@@ -19,10 +19,10 @@ import java.util.Scanner;
 public class TeacherController {
     private final Teacher teacher;
     private final TeacherView teacherView = new TeacherView();
-    private static final List<Feedback> givenFeeds = new ArrayList<>();
-    private static final List<Task> givenTasks = new ArrayList<>();
-    private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
-    private static final File tasksCSV = new File("src/Database/CSV/tasks.csv");
+    private static List<Feedback> givenFeeds;
+    private static List<Task> givenTasks;
+    private final File feedsCSV;
+    private final File tasksCSV;
     private final AccountsDB accountsDB = AccountsDB.INSTANCE;
     private final List<Student> studentList = accountsDB.getStudentList();
     private final Scanner scan;
@@ -30,11 +30,10 @@ public class TeacherController {
     public TeacherController(Teacher teacher, Scanner scan) {
         this.teacher = teacher;
         this.scan = scan;
-    }
-
-    public static void checkForTasksAndFeeds() {
-        FileHelper.checkForFeeds(feedsCSV, givenFeeds);
-        FileHelper.checkForTasks(tasksCSV, givenTasks);
+        givenFeeds = teacher.getGivenFeeds();
+        givenTasks = teacher.getGivenTasks();
+        feedsCSV = teacher.getFeedsCSV();
+        tasksCSV = teacher.getTasksCSV();
     }
 
     public void start() {
