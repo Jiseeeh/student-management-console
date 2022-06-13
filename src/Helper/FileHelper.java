@@ -5,9 +5,7 @@ import Database.AccountsDB;
 import Model.Feedback;
 import Model.Task;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,6 +27,31 @@ public class FileHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void renameFile(String oldName, String newName) {
+        String sCurrentLine = "";
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(oldName));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(newName));
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                bw.write(sCurrentLine);
+                bw.newLine();
+            }
+
+            br.close();
+            bw.close();
+
+            // delete the old file
+            File org = new File(oldName);
+            org.delete();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void checkForFeeds(File feedsCSV, List<Feedback> givenFeeds) {

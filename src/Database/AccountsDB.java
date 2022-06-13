@@ -1,13 +1,15 @@
 package Database;
 
+import Helper.FileHelper;
 import Model.Admin;
 import Model.Student;
 import Model.User;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -114,7 +116,7 @@ public class AccountsDB {
     }
 
     private void updateAccountsCSV(String username) {
-        File tempFile = new File("src/Database/CSV/accountsTEMP.csv");
+        File tempFile = new File("src/Database/CSV/accountsTemp.csv");
         /// copies the content of the accounts CSV and skipping the deleted line
         try (Scanner scanAccountsCSV = new Scanner(accountsCSV)) {
             if (tempFile.createNewFile()) {
@@ -130,15 +132,16 @@ public class AccountsDB {
                     // write the line of other accounts to the temp file
                     writer.write(line + "\n");
                 }
+
                 writer.close();
 
                 // rename temp file to the old file to update it.
-                tempFile.renameTo(accountsCSV);
+                FileHelper.renameFile(tempFile.toString(), accountsCSV.toString());
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
