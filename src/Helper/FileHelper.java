@@ -12,14 +12,14 @@ import java.util.Scanner;
 public class FileHelper {
     private static final List<Student> studentList = AccountsDB.INSTANCE.getStudentList();
 
-    public static void clearCSVFile(File csvFile, String header) {
+    public static void clearFile(File target, String header) {
         FileWriter writer;
         try {
             // deletes the file
-            if (csvFile.delete()) {
+            if (target.delete()) {
                 // then create it again and append the header to simulate updating of file
-                csvFile.createNewFile();
-                writer = new FileWriter(csvFile, true);
+                target.createNewFile();
+                writer = new FileWriter(target, true);
                 writer.append(header);
                 writer.flush();
                 writer.close();
@@ -29,12 +29,12 @@ public class FileHelper {
         }
     }
 
-    public static void replaceFile(String oldName, String newName) {
+    public static void replaceFile(String pathOfOldFile, String pathOfNewFile) {
         String sCurrentLine = "";
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(oldName));
-            BufferedWriter bw = new BufferedWriter(new FileWriter(newName));
+            BufferedReader br = new BufferedReader(new FileReader(pathOfOldFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(pathOfNewFile));
 
             while ((sCurrentLine = br.readLine()) != null) {
                 bw.write(sCurrentLine);
@@ -45,13 +45,24 @@ public class FileHelper {
             bw.close();
 
             // delete the old file
-            File org = new File(oldName);
+            File org = new File(pathOfOldFile);
             org.delete();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
+
+    public static void writeToFile(File target, String... contents) {
+        try (FileWriter writer = new FileWriter(target, true)) {
+            for (String content : contents) {
+                writer.append(content);
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void checkForFeeds(File feedsCSV, List<Feedback> givenFeeds) {
@@ -145,4 +156,5 @@ public class FileHelper {
             e.printStackTrace();
         }
     }
+
 }

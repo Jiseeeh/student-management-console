@@ -11,8 +11,6 @@ import Model.Teacher;
 import Views.TeacherView;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -95,12 +93,7 @@ public class TeacherController {
         // accepts the feed for the student obj to also have a reference to the feedback
         student.getMyController().acceptFeed(feedback);
 
-        try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true)) {
-            feedsCSVWriter.append(feedback + "\n");
-            feedsCSVWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileHelper.writeToFile(feedsCSV, feedback + "\n");
     }
 
     public void giveTask() {
@@ -129,12 +122,7 @@ public class TeacherController {
         givenTasks.add(task);
         student.getMyController().acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
-        try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
-            tasksCSVWriter.append(task + "\n");
-            tasksCSVWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        FileHelper.writeToFile(tasksCSV, task + "\n");
     }
 
 
@@ -147,7 +135,7 @@ public class TeacherController {
                 """);
 
         givenFeeds.clear();
-        FileHelper.clearCSVFile(feedsCSV, "StudentName,TeacherName,Feedback\n");
+        FileHelper.clearFile(feedsCSV, "StudentName,TeacherName,Feedback\n");
     }
 
     public void clearTasks() {
@@ -159,6 +147,6 @@ public class TeacherController {
                 """);
 
         givenTasks.clear();
-        FileHelper.clearCSVFile(tasksCSV, "StudentName,TeacherName,Task\n");
+        FileHelper.clearFile(tasksCSV, "StudentName,TeacherName,Task\n");
     }
 }

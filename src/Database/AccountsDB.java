@@ -17,7 +17,6 @@ import java.util.Scanner;
 public class AccountsDB {
     public static final AccountsDB INSTANCE = new AccountsDB();
     private final static File accountsCSV = new File("src/Database/CSV/accounts.csv");
-    private static FileWriter accountsCSVWriter;
     private final List<User> users = new ArrayList<>();
     private final List<Student> studentList = new ArrayList<>();
     private final Scanner scan = new Scanner(System.in);
@@ -63,13 +62,9 @@ public class AccountsDB {
 
         // appends the user's information to the accountsCSV
         String info = "%s,%s,%s,%s,%d,%s\n";
-        try {
-            accountsCSVWriter.append(String.format(info, newUser.getFirstName(), newUser.getLastName(),
-                    newUser.getUsername(), newUser.getPassword(), newUser.getAge(), newUser.getType()));
-            accountsCSVWriter.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        FileHelper.writeToFile(accountsCSV, String.format(info, newUser.getFirstName(), newUser.getLastName(),
+                newUser.getUsername(), newUser.getPassword(), newUser.getAge(), newUser.getType()));
     }
 
     public void deleteAccount() {
@@ -166,18 +161,12 @@ public class AccountsDB {
         // checks if the file can be created or already existing
         else {
             if (accountsCSV.createNewFile()) writeHeader();
-            else {
-                readAccounts();
-                accountsCSVWriter = new FileWriter(accountsCSV, true);
-            }
+            else readAccounts();
         }
     }
 
-    private void writeHeader() throws IOException {
-        accountsCSVWriter = new FileWriter(accountsCSV, true);
-        // appends the header when the conditions are met
-        accountsCSVWriter.append("FirstName,LastName,Username,Password,Age,Type\n");
-        accountsCSVWriter.flush();
+    private void writeHeader() {
+        FileHelper.writeToFile(accountsCSV, "FirstName,LastName,Username,Password,Age,Type\n");
     }
 
     private void readAccounts() {
@@ -197,6 +186,7 @@ public class AccountsDB {
                         .build(data[5]);
 
                 users.add(user);
+
                 if (user.getType().equals("student")) {
                     studentList.add((Student) user);
                     new StudentController((Student) user);
