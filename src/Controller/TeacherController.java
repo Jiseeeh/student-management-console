@@ -10,13 +10,11 @@ import Model.Task;
 import Model.Teacher;
 import Views.TeacherView;
 
-import java.io.File;
 import java.util.List;
 import java.util.Scanner;
 
 public class TeacherController {
-    private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
-    private static final File tasksCSV = new File("src/Database/CSV/tasks.csv");
+
     private static List<Feedback> givenFeeds;
     private static List<Task> givenTasks;
     private final Teacher teacher;
@@ -32,10 +30,6 @@ public class TeacherController {
         givenTasks = teacher.getGivenTasks();
     }
 
-    public static void checkForTasksAndFeeds() {
-        FileHelper.checkForFeeds(feedsCSV, givenFeeds);
-        FileHelper.checkForTasks(tasksCSV, givenTasks);
-    }
 
     public void start() {
         chooseFromDashboard();
@@ -93,7 +87,7 @@ public class TeacherController {
         // accepts the feed for the student obj to also have a reference to the feedback
         student.getMyController().acceptFeed(feedback);
 
-        FileHelper.writeToFile(feedsCSV, feedback + "\n");
+        FileHelper.writeToFile(teacher.getFeedsCSV(), feedback + "\n");
     }
 
     public void giveTask() {
@@ -122,7 +116,7 @@ public class TeacherController {
         givenTasks.add(task);
         student.getMyController().acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
-        FileHelper.writeToFile(tasksCSV, task + "\n");
+        FileHelper.writeToFile(teacher.getTasksCSV(), task + "\n");
     }
 
 
@@ -135,7 +129,7 @@ public class TeacherController {
                 """);
 
         givenFeeds.clear();
-        FileHelper.clearFile(feedsCSV, "StudentName,TeacherName,Feedback\n");
+        FileHelper.clearFile(teacher.getFeedsCSV(), "StudentName,TeacherName,Feedback\n");
     }
 
     public void clearTasks() {
@@ -147,6 +141,6 @@ public class TeacherController {
                 """);
 
         givenTasks.clear();
-        FileHelper.clearFile(tasksCSV, "StudentName,TeacherName,Task\n");
+        FileHelper.clearFile(teacher.getTasksCSV(), "StudentName,TeacherName,Task\n");
     }
 }
