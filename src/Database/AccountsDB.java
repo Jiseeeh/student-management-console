@@ -57,7 +57,11 @@ public class AccountsDB {
                 .age(age)
                 .build(type);
 
-        if (type.equals("student")) studentList.add((Student) newUser);
+        if (type.equals("student")) {
+            studentList.add((Student) newUser);
+            new StudentController((Student) newUser);
+        }
+
         users.add(newUser);
 
         // appends the user's information to the accountsCSV
