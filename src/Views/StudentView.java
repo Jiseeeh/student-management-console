@@ -1,32 +1,39 @@
 package Views;
 
-import Controller.StudentController;
+import Helper.ListHelper;
+import Model.Feedback;
 import Model.Student;
+import Model.Task;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class StudentView {
-    public void show(StudentController studentController, Scanner scan) {
+    public void showMyDashboard() {
+        System.out.println("""
+                \nWhat do you want to do?
+                1 -> See tasks
+                2 -> See Feedbacks
+                3 -> Mark task as done
+                4 -> See my info
+                5 -> Logout
+                """);
 
-        while (true) {
-            System.out.println("""
-                    \nWhat do you want to do?
-                    1 -> See tasks
-                    2 -> See Feedbacks
-                    3 -> Mark task as done
-                    4 -> See my info
-                    5 -> Logout
-                    """);
-            System.out.print(": ");
-            String input = scan.nextLine().trim();
+        System.out.print(": ");
+    }
 
-            int choice = Integer.parseInt(input);
+    public void viewMyTasks(List<Task> studentTasks) {
+        if (!ListHelper.hasTasks(studentTasks)) return;
 
-            if (choice == 5) return;
-            if (choice == 1) studentController.viewMyTasks();
-            if (choice == 2) studentController.viewMyFeeds();
-            if (choice == 3) studentController.markTask();
-            if (choice == 4) studentController.viewMyInfo();
-        }
+        studentTasks.forEach(task -> System.out.println(task.getTask(true)));
+    }
+
+    public void viewMyFeeds(List<Feedback> studentFeedbacks) {
+        if (!ListHelper.hasFeeds(studentFeedbacks)) return;
+
+        studentFeedbacks.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
+    }
+
+    public void viewMyInfo(Student student) {
+        student.viewMyInfo();
     }
 }

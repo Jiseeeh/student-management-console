@@ -1,32 +1,32 @@
 package Views;
 
-import Controller.AdminController;
-import Database.AccountsDB;
-import Helper.InputHelper;
+import Model.User;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class AdminView {
-    public void show(AdminController adminController, Scanner scan) {
-        while (true) {
-            System.out.println("""
-                    \nWhat do you want to do?
-                    1 -> Create account
-                    2 -> Delete account
-                    3 -> List accounts
-                    4 -> Logout
-                    """);
-            System.out.print(": ");
-            String input = scan.nextLine().trim();
+    public void showDashboard() {
+        System.out.println("""
+                \nWhat do you want to do?
+                1 -> Create account
+                2 -> Delete account
+                3 -> List accounts
+                4 -> Logout
+                """);
+        System.out.print(": ");
+    }
 
-            if (InputHelper.hasLetterInput(input)) continue;
+    public void listAccounts(List<User> accounts) {
+        for (var user : accounts) {
+            // skips the admin
+            if (user.getUsername().equals("admin")) continue;
 
-            int choice = Integer.parseInt(input);
-
-            if (choice == 4) return;
-            if (choice == 1) adminController.createAccount();
-            if (choice == 2) adminController.deleteAccount();
-            if (choice == 3) adminController.listAccounts();
+            System.out.printf("""
+                    \n================
+                    Username: %s
+                    Password: %s
+                    ================
+                    """, user.getUsername(), user.getPassword());
         }
     }
 }

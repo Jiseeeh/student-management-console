@@ -1,28 +1,28 @@
 package Controller;
 
 import Database.AccountsDB;
-import Model.Feedback;
-import Model.Task;
 import Helper.FileHelper;
+import Helper.InputHelper;
 import Helper.ListHelper;
+import Model.Feedback;
 import Model.Student;
+import Model.Task;
 import Model.Teacher;
 import Views.TeacherView;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class TeacherController {
-    private final Teacher teacher;
-    private final TeacherView teacherView = new TeacherView();
+    private static final File feedsCSV = new File("src/Database/CSV/feeds.csv");
+    private static final File tasksCSV = new File("src/Database/CSV/tasks.csv");
     private static List<Feedback> givenFeeds;
     private static List<Task> givenTasks;
-    private final File feedsCSV;
-    private final File tasksCSV;
+    private final Teacher teacher;
+    private final TeacherView teacherView = new TeacherView();
     private final AccountsDB accountsDB = AccountsDB.INSTANCE;
     private final List<Student> studentList = accountsDB.getStudentList();
     private final Scanner scan;
@@ -32,12 +32,40 @@ public class TeacherController {
         this.scan = scan;
         givenFeeds = teacher.getGivenFeeds();
         givenTasks = teacher.getGivenTasks();
-        feedsCSV = teacher.getFeedsCSV();
-        tasksCSV = teacher.getTasksCSV();
+    }
+
+    public static void checkForTasksAndFeeds() {
+        FileHelper.checkForFeeds(feedsCSV, givenFeeds);
+        FileHelper.checkForTasks(tasksCSV, givenTasks);
     }
 
     public void start() {
-        teacherView.show(this, scan);
+        chooseFromDashboard();
+    }
+
+    private void chooseFromDashboard() {
+        while (true) {
+
+            teacherView.showMyDashboard();
+            String input = scan.nextLine();
+
+            if (InputHelper.hasLetterInput(input)) continue;
+
+            int choice = Integer.parseInt(input);
+
+            switch (choice) {
+                case 1 -> giveFeed();
+                case 2 -> giveTask();
+                case 3 -> clearTasks();
+                case 4 -> clearFeeds();
+                case 5 -> teacherView.viewMyInfo(teacher);
+                case 6 -> teacherView.viewGivenFeeds(givenFeeds);
+                case 7 -> teacherView.viewGivenTasks(givenTasks);
+                case 8 -> {
+                    return;
+                }
+            }
+        }
     }
 
     public void giveFeed() {
@@ -63,9 +91,11 @@ public class TeacherController {
 
         Feedback feedback = new Feedback(student.getFirstName(), teacher.getFirstName(), feed);
         givenFeeds.add(feedback);
-        student.acceptFeed(feedback); // accepts the feed for the student obj to also have a reference to the feedback
 
-        try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true);) {
+        // accepts the feed for the student obj to also have a reference to the feedback
+        student.getMyController().acceptFeed(feedback);
+
+        try (FileWriter feedsCSVWriter = new FileWriter(feedsCSV, true)) {
             feedsCSVWriter.append(feedback + "\n");
             feedsCSVWriter.flush();
         } catch (IOException e) {
@@ -86,6 +116,7 @@ public class TeacherController {
             i++;
         }
 
+
         System.out.print(": ");
         int studentNumber = Integer.parseInt(scan.nextLine());
 
@@ -96,24 +127,14 @@ public class TeacherController {
 
         Task task = new Task(student.getFirstName(), teacher.getFirstName(), givenTask);
         givenTasks.add(task);
-        student.acceptTask(task); // accepts the task for the student obj to also have a reference to the task
+        student.getMyController().acceptTask(task); // accepts the task for the student obj to also have a reference to the task
 
         try (FileWriter tasksCSVWriter = new FileWriter(tasksCSV, true)) {
-            tasksCSVWriter.append(task.toString() + "\n");
+            tasksCSVWriter.append(task + "\n");
             tasksCSVWriter.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void viewGivenFeeds() {
-        if (!ListHelper.hasFeeds(givenFeeds)) return;
-        givenFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(false)));
-    }
-
-    public void viewGivenTasks() {
-        if (!ListHelper.hasTasks(givenTasks)) return;
-        givenTasks.forEach(task -> System.out.println(task.getTask(false)));
     }
 
 
@@ -139,9 +160,5 @@ public class TeacherController {
 
         givenTasks.clear();
         FileHelper.clearCSVFile(tasksCSV, "StudentName,TeacherName,Task\n");
-    }
-
-    public void viewMyInfo() {
-        teacher.viewMyInfo();
     }
 }

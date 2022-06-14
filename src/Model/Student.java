@@ -1,11 +1,14 @@
 package Model;
 
+import Controller.StudentController;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends User {
     private final List<Feedback> myFeeds = new ArrayList<>();
     private final List<Task> myTasks = new ArrayList<>();
+    private StudentController myController;
 
     public Student(UserBuilder builder) {
         this.setFirstName(builder.getFirstName());
@@ -16,21 +19,19 @@ public class Student extends User {
         this.setType(builder.getType());
     }
 
-    // for the student to also have a reference to the given task
-    public void acceptTask(Task task) {
-        myTasks.add(task);
-    }
-
-    // for the student to also have a reference to the given feedback
-    public void acceptFeed(Feedback feedback) {
-        myFeeds.add(feedback);
-    }
-
     public List<Feedback> getMyFeeds() {
         return myFeeds;
     }
 
     public List<Task> getMyTasks() {
         return myTasks;
+    }
+
+    public StudentController getMyController() {
+        return myController;
+    }
+
+    public void setMyController(StudentController myController) {
+        this.myController = myController;
     }
 }

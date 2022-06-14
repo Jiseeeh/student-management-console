@@ -1,9 +1,9 @@
 package Controller;
 
-import Model.Feedback;
-import Model.Task;
 import Helper.ListHelper;
+import Model.Feedback;
 import Model.Student;
+import Model.Task;
 import Views.StudentView;
 
 import java.util.List;
@@ -12,44 +12,51 @@ import java.util.Scanner;
 public class StudentController {
     private final Student student;
     private final StudentView studentView = new StudentView();
-    private final List<Feedback> myFeeds;
-    private final List<Task> myTasks;
-    private final Scanner scan;
+    private final List<Feedback> studentFeeds;
+    private final List<Task> studentTasks;
+    private final Scanner scan = new Scanner(System.in);
 
-    public StudentController(Student student, Scanner scan) {
+    public StudentController(Student student) {
         this.student = student;
-        this.scan = scan;
-        myFeeds = student.getMyFeeds();
-        myTasks = student.getMyTasks();
+        studentFeeds = student.getMyFeeds();
+        studentTasks = student.getMyTasks();
+        student.setMyController(this);
     }
 
     public void start() {
-        studentView.show(this, scan);
+        chooseFromDashboard();
     }
 
-    public void viewMyFeeds() {
-        if (!ListHelper.hasFeeds(myFeeds)) return;
+    private void chooseFromDashboard() {
+        while (true) {
+            studentView.showMyDashboard();
+            String input = scan.nextLine().trim();
 
-        myFeeds.forEach(feedback -> System.out.println(feedback.getFeedback(true)));
+            int choice = Integer.parseInt(input);
+
+            switch (choice) {
+                case 1 -> studentView.viewMyTasks(studentTasks);
+                case 2 -> studentView.viewMyFeeds(studentFeeds);
+                case 3 -> markTask();
+                case 4 -> studentView.viewMyInfo(student);
+                case 5 -> {
+                    return;
+                }
+            }
+        }
     }
 
-    public void viewMyTasks() {
-        if (!ListHelper.hasTasks(myTasks)) return;
-
-        myTasks.forEach(task -> System.out.println(task.getTask(true)));
-    }
-
-    public void markTask() {
+    private void markTask() {
         int i = 0;
 
-        if (!ListHelper.hasTasks(myTasks)) return;
+        if (!ListHelper.hasTasks(studentTasks)) return;
 
         System.out.println("""
                 NOTE: Marking a task as done won't be saved when you exit.
                 So when you log back again, you won't see (DONE) with it.
                 """);
 
-        for (var task : myTasks) {
+        for (var task : studentTasks) {
             System.out.println(i + ": " + task.getTask(true));
             i++;
         }
@@ -57,10 +64,16 @@ public class StudentController {
         System.out.print("Enter the task you want to mark as done: ");
         int index = Integer.parseInt(scan.nextLine());
 
-        myTasks.get(index).markAsDone();
+        studentTasks.get(index).markAsDone();
     }
 
-    public void viewMyInfo() {
-        student.viewMyInfo();
+    // for the student to also have a reference to the given task
+    public void acceptTask(Task task) {
+        studentTasks.add(task);
+    }
+
+    // for the student to also have a reference to the given feedback
+    public void acceptFeed(Feedback feedback) {
+        studentFeeds.add(feedback);
     }
 }

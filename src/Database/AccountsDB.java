@@ -1,15 +1,15 @@
 package Database;
 
+import Controller.StudentController;
 import Helper.FileHelper;
 import Model.Admin;
 import Model.Student;
 import Model.User;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -73,9 +73,7 @@ public class AccountsDB {
     }
 
     public void deleteAccount() {
-
-
-        this.listAccounts();
+        listAccounts();
 
         System.out.println("\nEnter the username of the account");
         System.out.print(": ");
@@ -135,7 +133,7 @@ public class AccountsDB {
                 writer.close();
 
                 // rename temp file to the old file to update it.
-                FileHelper.renameFile(tempFile.toString(), accountsCSV.toString());
+                FileHelper.replaceFile(tempFile.toString(), accountsCSV.toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -199,7 +197,10 @@ public class AccountsDB {
                         .build(data[5]);
 
                 users.add(user);
-                if (user.getType().equals("student")) studentList.add((Student) user);
+                if (user.getType().equals("student")) {
+                    studentList.add((Student) user);
+                    new StudentController((Student) user);
+                }
             }
 
         } catch (FileNotFoundException e) {

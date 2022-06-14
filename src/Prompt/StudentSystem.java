@@ -3,14 +3,12 @@ package Prompt;
 import Controller.AdminController;
 import Controller.StudentController;
 import Controller.TeacherController;
+import Database.AccountsDB;
+import Helper.InputHelper;
+import Model.Admin;
 import Model.Student;
 import Model.Teacher;
 import Model.User;
-import Database.AccountsDB;
-import Helper.InputHelper;
-import Views.AdminView;
-import Views.StudentView;
-import Views.TeacherView;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,11 +65,11 @@ public class StudentSystem {
         }
         switch (accountType) {
             case "admin" -> {
-                var adminController = new AdminController(scan);
+                var adminController = new AdminController((Admin) account, scan);
                 adminController.start();
             }
             case "student" -> {
-                var studentController = new StudentController((Student) account, scan);
+                var studentController = new StudentController((Student) account);
                 studentController.start();
             }
             case "teacher" -> {

@@ -1,8 +1,8 @@
 package Helper;
 
-import Model.Student;
 import Database.AccountsDB;
 import Model.Feedback;
+import Model.Student;
 import Model.Task;
 
 import java.io.*;
@@ -29,7 +29,7 @@ public class FileHelper {
         }
     }
 
-    public static void renameFile(String oldName, String newName) {
+    public static void replaceFile(String oldName, String newName) {
         String sCurrentLine = "";
 
         try {
@@ -88,7 +88,7 @@ public class FileHelper {
 
                         Feedback feedback = new Feedback(student.getFirstName(), data[1], data[2]);
                         givenFeeds.add(feedback);
-                        student.acceptFeed(feedback);
+                        student.getMyController().acceptFeed(feedback);
 
                     }
 
@@ -134,7 +134,7 @@ public class FileHelper {
 
                         Task task = new Task(student.getFirstName(), data[1], data[2]);
                         givenTasks.add(task);
-                        student.acceptTask(task);
+                        student.getMyController().acceptTask(task);
                     }
 
                 } catch (IOException e) {
