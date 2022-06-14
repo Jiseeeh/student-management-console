@@ -5,7 +5,6 @@ import Controller.StudentController;
 import Controller.TeacherController;
 import Database.AccountsDB;
 import Helper.InputHelper;
-import Model.Admin;
 import Model.Student;
 import Model.Teacher;
 import Model.User;
@@ -65,7 +64,7 @@ public class StudentSystem {
         }
         switch (accountType) {
             case "admin" -> {
-                var adminController = new AdminController((Admin) account, scan);
+                var adminController = new AdminController(scan);
                 adminController.start();
             }
             case "student" -> {
