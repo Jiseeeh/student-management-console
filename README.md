@@ -28,4 +28,4 @@ git clone https://github.com/Jiseeeh/StudentManagementConsole.git
 - And other minor things.
 
 # Contribution
-- You can just make a pull request, it is highly appreciated! Even a single fix of typo or code refractorings!
+- You can just make a pull request, it is highly appreciated! Even a single fix of typo or code refractorings(for my spaghetti code)!
